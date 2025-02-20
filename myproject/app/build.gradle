@@ -7,10 +7,9 @@ repositories {
 }
 
 dependencies {
+    implementation 'org.apache.tomcat.embed:tomcat-embed-jasper:9.0.98'
     testImplementation libs.junit.jupiter
-
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-
     implementation libs.guava
 }
 
@@ -21,7 +20,7 @@ java {
 }
 
 application {
-    mainClass = 'org.example.App'
+    mainClass = 'bitcamp.myapp.App'
 }
 
 tasks.named('test') {
