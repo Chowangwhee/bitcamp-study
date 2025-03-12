@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"path": "../.."
+		},
+		{
+			"path": "../../../eomcs-java"
+		},
+		{
+			"path": "../../../eomcs-docs"
+		},
+		{
+			"path": "../../../gitcamp-teacher"
+		}
+	],
+	"settings": {}
+}

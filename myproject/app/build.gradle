@@ -7,9 +7,10 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.springframework:spring-webmvc:5.3.39'
-    implementation 'org.apache.tomcat.embed:tomcat-embed-jasper:9.0.98'
     implementation libs.guava
+    implementation libs.mysql.connectorj
+    implementation libs.tomcat.embed.jasper
+    implementation libs.spring.webmvc
 
     testImplementation libs.junit.jupiter
 
