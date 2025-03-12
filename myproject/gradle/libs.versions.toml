@@ -7,6 +7,7 @@ junit-jupiter = "5.11.1"
 mysql-connectorj = "8.4.0"
 springframework = "5.3.39"
 tomcat = "9.0.98"
+jstl = "1.2"
 
 [libraries]
 guava = { module = "com.google.guava:guava", version.ref = "guava" }
@@ -14,3 +15,4 @@ junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "jun
 mysql-connectorj = { module = "com.mysql:mysql-connector-j", version.ref = "mysql-connectorj" }
 spring-webmvc = { module = "org.springframework:spring-webmvc", version.ref = "springframework" }
 tomcat-embed-jasper = { module = "org.apache.tomcat.embed:tomcat-embed-jasper", version.ref = "tomcat" }
+jstl = { module = "javax.servlet:jstl", version.ref = "jstl" }
