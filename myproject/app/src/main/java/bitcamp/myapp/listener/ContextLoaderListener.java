@@ -1,5 +1,6 @@
 package bitcamp.myapp.listener;
 
+import bitcamp.myapp.dao.MemberDao;
 import bitcamp.myapp.service.MemberService;
 
 import javax.servlet.ServletContext;
@@ -29,13 +30,14 @@ public class ContextLoaderListener implements ServletContextListener {
             // com.mysql.cj.jdbc.Driver 클래스의 역할에 포함되기 때문에 생략 가능
 
             // 4. DB에 연결
-            DriverManager.getConnection(
+            con = DriverManager.getConnection(
                     "jdbc:mysql://db-32lmqb-kr.vpc-pub-cdb.ntruss.com:3306/bitcamp",
                     "student",
                     "bitcamp123!@#");
 
             ServletContext ctx = sce.getServletContext();
-            MemberService memberService = new MemberService();
+            MemberDao memberDao = new MemberDao(con);
+            MemberService memberService = new MemberService(memberDao);
             ctx.setAttribute("memberService", memberService);
 
             System.out.println("웹 애플리케이션 실행환경 준비 완료!");
