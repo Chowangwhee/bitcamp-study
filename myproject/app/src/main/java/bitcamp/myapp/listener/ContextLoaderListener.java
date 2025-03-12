@@ -1,14 +1,16 @@
 package bitcamp.myapp.listener;
 
+import bitcamp.myapp.service.MemberService;
+
+import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 import java.sql.Connection;
-import java.sql.Driver;
 import java.sql.DriverManager;
 
 @WebListener
-public class DatabaseInitListener implements ServletContextListener {
+public class ContextLoaderListener implements ServletContextListener {
 
     private Connection con;
 
@@ -32,10 +34,14 @@ public class DatabaseInitListener implements ServletContextListener {
                     "student",
                     "bitcamp123!@#");
 
-            System.out.println("데이터베이스 초기화 완료!");
+            ServletContext ctx = sce.getServletContext();
+            MemberService memberService = new MemberService();
+            ctx.setAttribute("memberService", memberService);
+
+            System.out.println("웹 애플리케이션 실행환경 준비 완료!");
 
         } catch (Exception e) {
-            System.out.println("데이터베이스 초기화 중 오류 발생!");
+            System.out.println("웹 애플리케이션 실행환경 준비 중 오류 발생!");
             e.printStackTrace();
         }
     }
@@ -47,7 +53,7 @@ public class DatabaseInitListener implements ServletContextListener {
                 con.close();
             }
         } catch (Exception e) {
-            System.out.println("데이터베이스 종료 중 오류 발생!");
+            System.out.println("웹 애플리케이션 실행환경 종료 중 오류 발생!");
             e.printStackTrace();
         }
     }
