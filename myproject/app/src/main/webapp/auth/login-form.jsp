@@ -46,11 +46,15 @@
         <form action="/auth/login" method="post">
             <div class="form-group">
                 <label for="email">이메일:</label>
-                <input type="email" name="email" required>
+                <input type="email" id="email" name="email" value="${cookie.email.value}" required>
             </div>
             <div class="form-group">
                 <label for="password">암호:</label>
-                <input type="password" name="password" required>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="form-group">
+                <input type="checkbox" id="saveEmail" name="saveEmail">
+                <label for="saveEmail">이메일 저장</label>
             </div>
             <button type="submit">로그인</button>
         </form>
