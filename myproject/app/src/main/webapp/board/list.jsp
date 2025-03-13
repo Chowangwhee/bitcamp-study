@@ -23,10 +23,26 @@
         th {
             background-color: #f0f0f0;
         }
+        .button-container {
+            text-align: right;
+            width: 80%;
+            margin: 0 auto 10px;
+        }
+        .button-container button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
     <h1>게시글 목록</h1>
+    <div class="button-container">
+        <a href="/board/add"><button>글 쓰기</button></a>
+    </div>
     <table>
         <thead>
             <tr>
@@ -40,10 +56,10 @@
         <tbody>
             <c:forEach var="board" items="${list}">
                 <tr>
-                    <td>${board.no}</td>
-                    <td>${board.title}</td>
-                    <td>${board.writer.name}</td>
-                    <td><fmt:formatDate value="${board.createDate}" pattern="yyyy-MM-dd"/></td>
+                    <td><a href="/board/view?no=${board.no}">${board.no}</td>
+                    <td><a href="/board/view?no=${board.no}">${board.title}</td>
+                    <td><a href="/board/view?no=${board.no}">${board.writer.name}</td>
+                    <td><a href="/board/view?no=${board.no}"><fmt:formatDate value="${board.createDate}" pattern="yyyy-MM-dd"/></td>
                     <td>${board.viewCount}</td>
                 </tr>
             </c:forEach>

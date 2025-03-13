@@ -7,6 +7,12 @@ repositories {
 }
 
 dependencies {
+    // https://mvnrepository.com/artifact/commons-io/commons-io
+    implementation 'commons-io:commons-io:2.15.0'
+
+    // https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload
+    implementation 'commons-fileupload:commons-fileupload:1.5'
+
 
     implementation libs.jstl
     implementation libs.guava
