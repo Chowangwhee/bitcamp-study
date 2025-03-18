@@ -1,20 +1,18 @@
 package bitcamp.myapp.listener;
 
-import bitcamp.myapp.dao.BoardDao;
-import bitcamp.myapp.dao.DefaultMemberDao;
-import bitcamp.myapp.dao.MemberDao;
-import bitcamp.myapp.dao.MySQLBoardDao;
-import bitcamp.myapp.service.BoardService;
-import bitcamp.myapp.service.DefaultBoardService;
-import bitcamp.myapp.service.DefaultMemberService;
-import bitcamp.myapp.service.MemberService;
+import bitcamp.myapp.dao.*;
+import bitcamp.myapp.service.*;
+import bitcamp.transaction.TransactionProxyFactory;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.util.Properties;
 
 @WebListener
 public class ContextLoaderListener implements ServletContextListener {
@@ -24,32 +22,39 @@ public class ContextLoaderListener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         try {
-            // 1. JDBC Driver 로딩(java.sql.Driver 구현체 로딩)
-//            Class.forName("com.mysql.cj.jdbc.Driver");
-
-            // 2. Driver 구현 객체 생성
-//            Driver driver = new com.mysql.jdbc.Driver();
-
-            // 3. Driver 객체를 JDBC 드라이버 관리자에 등록
-//            DriverManager.registerDriver(driver);
-
-            // com.mysql.cj.jdbc.Driver 클래스의 역할에 포함되기 때문에 생략 가능
+            // Load database properties
+            Properties dbProperties = new Properties();
+            try (InputStream input = getClass().getClassLoader().getResourceAsStream("database.properties")) {
+                if (input == null) {
+                    throw new RuntimeException("database.properties file not found in classpath.");
+                }
+                dbProperties.load(input);
+            } catch (IOException e) {
+                throw new RuntimeException("Error loading database.properties file.", e);
+            }
 
             // 4. DB에 연결
             con = DriverManager.getConnection(
-                    "jdbc:mysql://db-32lmqb-kr.vpc-pub-cdb.ntruss.com:3306/bitcamp",
-                    "student",
-                    "bitcamp123!@#");
+                    dbProperties.getProperty("db.url"),
+                    dbProperties.getProperty("db.username"),
+                    dbProperties.getProperty("db.password"));
 
             ServletContext ctx = sce.getServletContext();
 
             MemberDao memberDao = new DefaultMemberDao(con);
-            MemberService memberService = new DefaultMemberService(memberDao);
-            ctx.setAttribute("memberService", memberService);
-
             BoardDao boardDao = new MySQLBoardDao(con);
-            BoardService boardService = new DefaultBoardService(boardDao);
-            ctx.setAttribute("boardService", boardService);
+            BoardFileDao boardFileDao = new MySQLBoardFileDao(con);
+
+            TransactionProxyFactory transactionProxyFactory = new TransactionProxyFactory(con);
+
+            DefaultMemberService memberService = new DefaultMemberService(memberDao);
+            ctx.setAttribute("memberService", transactionProxyFactory.createProxy(memberService, MemberService.class));
+
+            DefaultBoardService boardService = new DefaultBoardService(boardDao, boardFileDao, con);
+            ctx.setAttribute("boardService", transactionProxyFactory.createProxy(boardService, BoardService.class));
+
+            NCPObjectStorageService storageService = new NCPObjectStorageService();
+            ctx.setAttribute("storageService", transactionProxyFactory.createProxy(storageService, StorageService.class));
 
             System.out.println("웹 애플리케이션 실행환경 준비 완료!");
 

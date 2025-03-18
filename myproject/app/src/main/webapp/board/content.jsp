@@ -117,6 +117,66 @@
         .board-info strong {
             width: 100px;
         }
+         .photo-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .photo-item {
+            width: 150px;
+            height: 150px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .photo-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .download-link {
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-size: 0.8em;
+            text-decoration: none;
+            display: none;
+        }
+        .delete-link {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background-color: rgba(255, 0, 0, 0.7);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.8em;
+        }
+
+        .photo-item:hover .download-link {
+            display: block;
+        }
+
+        .photo-item:hover .delete-link {
+            display: block;
+        }
     </style>
 </head>
 <body>
@@ -150,6 +210,17 @@
                 <input type="text" value="${board.viewCount}" readonly>
             </div>
         </div>
+         <c:if test="${not empty board.photos}">
+            <div class="photo-container">
+                <c:forEach items="${board.photos}" var="photo">
+                    <div class="photo-item">
+                        <img src="/uploads/${photo.filename}" alt="Board Photo">
+                        <a href="/board/download?fileNo=${photo.no}" class="download-link">다운로드</a>
+                        <a href="/board/delete-file?no=${photo.no}" class="delete-link">X</a>
+                    </div>
+                </c:forEach>
+            </div>
+        </c:if>
         <div class="board-content">
             <textarea id="content" name="content" style="width: 100%; height: 300px;"
                       readonly>${board.content}</textarea>
@@ -188,17 +259,7 @@
     const boardInfo = document.querySelector('.board-info');
 
     modify.addEventListener('click', function () {
-        modify.style.display = 'none';
-        deleteBtn.style.display = 'none';
-
-        confirmCancelButtons.style.display = 'inline-block';
-
-        titleInput.readOnly = false;
-        contentTextarea.readOnly = false;
-        titleInput.focus();
-
-        boardInfo.classList.remove('readonly-mode');
-        boardInfo.classList.add('edit-mode');
+        location.href = `/board/modify?no=${board.no}`;
     });
 
     confirm.addEventListener('click', function () {
