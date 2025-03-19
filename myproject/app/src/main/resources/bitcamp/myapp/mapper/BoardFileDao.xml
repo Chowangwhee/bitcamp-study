@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="BoardFileDao">
+
+    <resultMap id="boardFileDao" type="bitcamp.myapp.vo.BoardPhoto">
+        <id column="af_id" property="no"/>
+        <association column="board_id" property="boardNo"/>
+        <association column="filename" property="filename"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="bitcamp.myapp.vo.BoardPhoto">
+        INSERT INTO ed_attached_file(board_id, filename)
+        VALUES(#{board_id}, #{filename})
+    </insert>
+
+    <delete id="delete" parameterType="integer">
+        DELETE FROM ed_attach_file
+        WHERE af_id = #{af_id}
+    </delete>
+
+    <select id="findByNo" resultType="bitcamp.myapp.vo.Board">
+        SELECT af_id, board_id, filename
+        FROM ed_attach_file
+        WHERE af_id = #{af_id}
+    </select>
+
+    <select id="findPhotosByBoardNo" resultSets="java.util.List">
+        SELECT af_id, board_id, filename
+        FROM ed_attach_file
+        WHERE board_id = #{board_id}
+    </select>
+
+</mapper>

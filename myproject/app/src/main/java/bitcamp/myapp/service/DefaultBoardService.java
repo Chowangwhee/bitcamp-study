@@ -57,6 +57,11 @@ public class DefaultBoardService implements BoardService {
     @Override
     public void write(Board board) {
         int boardId = boardDao.insert(board); // Get the generated boardId
+        try {
+            Thread.sleep(10000);
+        } catch (Exception e) {
+
+        }
         if (!board.getPhotos().isEmpty()) {
             boardFileDao.insert(boardId, board.getPhotos());
         }

@@ -3,6 +3,9 @@ package bitcamp.myapp.listener;
 import bitcamp.myapp.dao.*;
 import bitcamp.myapp.service.*;
 import bitcamp.transaction.TransactionProxyFactory;
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
@@ -33,6 +36,11 @@ public class ContextLoaderListener implements ServletContextListener {
                 throw new RuntimeException("Error loading database.properties file.", e);
             }
 
+            String resource = "bitcamp/myapp/config/mybatis-config.xml";
+            InputStream inputStream = Resources.getResourceAsStream(resource);
+            SqlSessionFactory sqlSessionFactory =
+                    new SqlSessionFactoryBuilder().build(inputStream);
+
             // 4. DB에 연결
             con = DriverManager.getConnection(
                     dbProperties.getProperty("db.url"),
@@ -41,16 +49,16 @@ public class ContextLoaderListener implements ServletContextListener {
 
             ServletContext ctx = sce.getServletContext();
 
-            MemberDao memberDao = new DefaultMemberDao(con);
-            BoardDao boardDao = new MySQLBoardDao(con);
-            BoardFileDao boardFileDao = new MySQLBoardFileDao(con);
+            MemberDao memberDao = new MySQLMemberDao(con, sqlSessionFactory);
+            BoardDao boardDao = new MySQLBoardDao(con, sqlSessionFactory);
+            BoardFileDao boardFileDao = new MySQLBoardFileDao(con, sqlSessionFactory);
 
-            TransactionProxyFactory transactionProxyFactory = new TransactionProxyFactory(con);
+            TransactionProxyFactory transactionProxyFactory = new TransactionProxyFactory(sqlSessionFactory);
 
             DefaultMemberService memberService = new DefaultMemberService(memberDao);
             ctx.setAttribute("memberService", transactionProxyFactory.createProxy(memberService, MemberService.class));
 
-            DefaultBoardService boardService = new DefaultBoardService(boardDao, boardFileDao, con);
+            DefaultBoardService boardService = new DefaultBoardService(boardDao, boardFileDao, sqlSessionFactory);
             ctx.setAttribute("boardService", transactionProxyFactory.createProxy(boardService, BoardService.class));
 
             NCPObjectStorageService storageService = new NCPObjectStorageService();

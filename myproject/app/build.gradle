@@ -7,14 +7,11 @@ repositories {
 }
 
 dependencies {
-    // https://mvnrepository.com/artifact/commons-io/commons-io
     implementation 'commons-io:commons-io:2.15.0'
-
-    // https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload
     implementation 'commons-fileupload:commons-fileupload:1.5'
-
-    // https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk
     implementation 'com.amazonaws:aws-java-sdk-s3:1.12.481'
+    implementation 'org.mybatis:mybatis:3.5.19'
+    implementation 'org.apache.commons:commons-dbcp2:2.13.0'
 
     implementation libs.jstl
     implementation libs.guava

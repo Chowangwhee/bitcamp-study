@@ -1,6 +1,7 @@
 package bitcamp.myapp.dao;
 
 import bitcamp.myapp.vo.BoardPhoto;
+import org.apache.ibatis.session.SqlSessionFactory;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -9,9 +10,11 @@ import java.util.List;
 public class MySQLBoardFileDao implements BoardFileDao {
 
     private Connection con;
+    private SqlSessionFactory sqlSessionFactory;
 
-    public MySQLBoardFileDao(Connection con) {
+    public MySQLBoardFileDao(Connection con, SqlSessionFactory sqlSessionFactory) {
         this.con = con;
+        this.sqlSessionFactory = sqlSessionFactory;
     }
 
     @Override

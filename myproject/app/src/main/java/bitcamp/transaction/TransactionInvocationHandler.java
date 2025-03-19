@@ -1,5 +1,8 @@
 package bitcamp.transaction;
 
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.sql.Connection;
@@ -8,11 +11,11 @@ import java.sql.Connection;
 public class TransactionInvocationHandler implements InvocationHandler {
 
     private Object target;
-    private Connection con;
+    private SqlSessionFactory sqlSessionFactory;
 
-    public TransactionInvocationHandler(Object target, Connection con) {
+    public TransactionInvocationHandler(Object target, SqlSessionFactory sqlSessionFactory) {
         this.target = target;
-        this.con = con;
+        this.sqlSessionFactory = sqlSessionFactory;
     }
 
     // 타겟 객체에 대해 메서드를 호출하면 이 메서드가 호출된다
@@ -24,16 +27,16 @@ public class TransactionInvocationHandler implements InvocationHandler {
         if (anno == null) {
             return method.invoke(target, args);
         }
-        con.setAutoCommit(false);
+        SqlSession sqlSession = sqlSessionFactory.openSession();
         try {
             Object returnValue = method.invoke(target, args);
-            con.commit();
+            sqlSession.commit();
             return returnValue;
         } catch (Exception e) {
-            con.rollback();
+            sqlSession.rollback();
             throw e;
         } finally {
-            con.setAutoCommit(true);
+            sqlSession.close();
         }
     }
 }
