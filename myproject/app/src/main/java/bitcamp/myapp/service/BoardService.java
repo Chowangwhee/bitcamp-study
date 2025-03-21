@@ -1,20 +1,21 @@
 package bitcamp.myapp.service;
 
+import bitcamp.myapp.dao.BoardDao;
+import bitcamp.myapp.dao.MemberDao;
+import bitcamp.myapp.vo.AttachedFile;
 import bitcamp.myapp.vo.Board;
-import bitcamp.myapp.vo.BoardPhoto;
+import bitcamp.myapp.vo.Member;
 
 import java.util.List;
 
 public interface BoardService {
+  List<Board> list();
+  void add(Board board);
+  Board get(int no);
+  void update(Board board);
+  void delete(int no);
+  void increaseViewCount(int no);
 
-    public List<Board> list() throws Exception;
-    public Board get(int no) throws Exception;
-    public void updateViewCount(int no) throws Exception;
-    public void modify(Board board) throws Exception;
-    public void remove(int no) throws Exception;
-    public void write(Board board) throws Exception;
-    void deletePhoto(int photoNo) throws Exception;
-    int addPhoto(int boardNo, String filePath) throws Exception;
-    BoardPhoto getBoardPhoto(int fileNo);
-
+  AttachedFile getAttachedFile(int fileNo);
+  void deleteAttachedFile(int fileNo);
 }

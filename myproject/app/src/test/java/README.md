@@ -1,3 +1,3 @@
-# /src/main/resources
+# src/test/java
 
-## ÀÌ Æú´õ´Â ´ÜÀ§ Å×½ºÆ® ½ÇÇàÀ» À§ÇÑ Æú´õÀÌ´Ù
+ì´ í´ë”ëŠ” ë‹¨ìœ„ í…ŒìŠ¤íŠ¸ ìžë°” ì†ŒìŠ¤ íŒŒì¼ì„ ë‘ëŠ” í´ë”ë‹¤.

@@ -1,64 +1,79 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<html lang="ko">
+<html>
 <head>
     <meta charset="UTF-8">
-    <title>게시글 작성</title>
+    <title>새 게시글</title>
     <style>
         body {
-            font-family: sans-serif;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
 
-        .container {
-            width: 80%;
-            margin: 20px auto;
-            padding: 20px;
-            border: 2px solid #777;
-            border-radius: 10px;
+        .board-form-container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 500px;
+        }
+
+        .board-form-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
         }
 
         .form-group {
             margin-bottom: 15px;
         }
 
-        label {
+        .form-group label {
             display: block;
             margin-bottom: 5px;
+            color: #555;
         }
 
-        input[type="text"],
-        textarea {
+        .form-group input[type="text"],
+        .form-group textarea {
             width: 100%;
-            padding: 8px;
+            padding: 10px;
             border: 1px solid #ccc;
             border-radius: 3px;
             box-sizing: border-box;
+            font-size: 16px;
         }
 
-        button[type="submit"] {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 15px;
+        .form-group textarea {
+            height: 200px;
+            resize: vertical; /* Allow vertical resizing of the textarea */
+        }
+
+        .form-group input[type="submit"] {
+            background-color: #5cb85c;
+            color: #fff;
             border: none;
+            padding: 10px 20px;
             border-radius: 3px;
             cursor: pointer;
+            font-size: 16px;
         }
-        .button-container {
-            margin-top: 20px;
-            text-align: center;
-        }
-        textarea {
-            height: 300px;
-            resize: none;
+
+        .form-group input[type="submit"]:hover {
+            background-color: #4cae4c;
         }
     </style>
 </head>
 <body>
-<jsp:include page="/common/navbar.jsp"/>
-<div class="container">
-    <h1>게시글 작성</h1>
-    <form action="/board/add" method="post" enctype="multipart/form-data">
+<div class="board-form-container">
+    <h1>새 게시글</h1>
+    <form action="/app/board/add" method="post" enctype="multipart/form-data">
         <div class="form-group">
             <label for="title">제목:</label>
             <input type="text" id="title" name="title" required>
@@ -68,12 +83,11 @@
             <textarea id="content" name="content" required></textarea>
         </div>
         <div class="form-group">
-            <label for="files">사진:</label>
+            <label for="files">첨부파일:</label>
             <input type="file" id="files" name="files" multiple>
         </div>
-        <div class="button-container">
-            <button type="submit">저장</button>
-            <a href="/home"><button type="button">취소</button></a>
+        <div class="form-group">
+            <input type="submit" value="등록">
         </div>
     </form>
 </div>
