@@ -5,19 +5,18 @@ import bitcamp.myapp.service.StorageService;
 import bitcamp.myapp.vo.AttachedFile;
 import bitcamp.myapp.vo.Board;
 import bitcamp.myapp.vo.Member;
-import bitcamp.stereotype.Controller;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 
-@Controller
+//@Controller
 public class BoardController {
 
   private BoardService boardService;
@@ -88,7 +87,7 @@ public class BoardController {
     return "redirect:list";
   }
 
-  @RequestMapping("/board/update")
+  @RequestMapping("/board/update-form")
   public String update(HttpServletRequest req, HttpServletResponse resp) throws Exception {
     Member loginUser = (Member) req.getSession().getAttribute("loginUser");
     if (loginUser == null) {
@@ -158,7 +157,7 @@ public class BoardController {
     return "redirect:list";
   }
 
-  @RequestMapping("/board/file/download")
+  @RequestMapping("/board/file-download")
   public String fileDownload(HttpServletRequest req, HttpServletResponse resp) throws Exception {
     int fileNo = Integer.parseInt(req.getParameter("fileNo"));
     AttachedFile attachedFile = boardService.getAttachedFile(fileNo);
@@ -171,7 +170,7 @@ public class BoardController {
     return null;
   }
 
-  @RequestMapping("/board/file/delete")
+  @RequestMapping("/board/file-delete")
   public String fileDelete(HttpServletRequest req, HttpServletResponse resp) throws Exception {
       Member loginUser = (Member) req.getSession().getAttribute("loginUser");
       if (loginUser == null) {

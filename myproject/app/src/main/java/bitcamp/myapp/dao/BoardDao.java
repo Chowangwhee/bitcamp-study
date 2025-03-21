@@ -22,5 +22,7 @@ public interface BoardDao {
 
   int delete(int no);
 
-  int updateViewCount(@Param("no") int no, @Param("increment") int increment);
+  int updateViewCount(
+          @Param("no") int no,
+          @Param("increment") int increment);
 }
