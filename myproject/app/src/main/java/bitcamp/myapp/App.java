@@ -19,7 +19,7 @@ import javax.sql.DataSource;
 
 @SpringBootApplication // Gradle 에서 bootRun 작업을 수행할 때 실행시킬 클래스를 지정하는 어노테이션
 @PropertySource("file:${user.home}/config/bitcamp-study.properties")
-//@EnableTransactionManagement // @Transactional 어노테이션 활성화
+// @EnableTransactionManagement - @Transactional 어노테이션 활성화 : SpringBoot 는 기본으로 활성화 시킨다
 @MapperScan("bitcamp.myapp.dao") // DAO 구현체 자동생성을 설정하는 방법 1: 어노테이션으로 설정하기
 public class App {
 
