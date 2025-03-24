@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-//@Service
+@Service
 public class DefaultBoardService implements BoardService {
 
   private BoardDao boardDao;
