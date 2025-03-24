@@ -87,7 +87,7 @@ public class BoardController {
     return "redirect:list";
   }
 
-  @RequestMapping("/board/update-form")
+  @RequestMapping("/board/update")
   public String update(HttpServletRequest req, HttpServletResponse resp) throws Exception {
     Member loginUser = (Member) req.getSession().getAttribute("loginUser");
     if (loginUser == null) {
@@ -157,7 +157,7 @@ public class BoardController {
     return "redirect:list";
   }
 
-  @RequestMapping("/board/file-download")
+  @RequestMapping("/board/file/download")
   public String fileDownload(HttpServletRequest req, HttpServletResponse resp) throws Exception {
     int fileNo = Integer.parseInt(req.getParameter("fileNo"));
     AttachedFile attachedFile = boardService.getAttachedFile(fileNo);
@@ -170,7 +170,7 @@ public class BoardController {
     return null;
   }
 
-  @RequestMapping("/board/file-delete")
+  @RequestMapping("/board/file/delete")
   public String fileDelete(HttpServletRequest req, HttpServletResponse resp) throws Exception {
       Member loginUser = (Member) req.getSession().getAttribute("loginUser");
       if (loginUser == null) {

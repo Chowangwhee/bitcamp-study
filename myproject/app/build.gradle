@@ -15,6 +15,7 @@ dependencies {
 
     implementation 'javax.servlet:jstl:1.2'
     implementation 'com.amazonaws:aws-java-sdk-s3:1.12.782'
+    implementation("javax.xml:jaxb-api:2.1")
 
     implementation libs.guava
     runtimeOnly libs.mysql.connectorj

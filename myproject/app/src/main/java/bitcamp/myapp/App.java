@@ -13,43 +13,15 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
 
 @SpringBootApplication // Gradle 에서 bootRun 작업을 수행할 때 실행시킬 클래스를 지정하는 어노테이션
 @PropertySource("file:${user.home}/config/bitcamp-study.properties")
+//@EnableTransactionManagement // @Transactional 어노테이션 활성화
 @MapperScan("bitcamp.myapp.dao") // DAO 구현체 자동생성을 설정하는 방법 1: 어노테이션으로 설정하기
 public class App {
-
-  @Bean // Spring IoC 컨테이너는 이 메서드를 호출한 후 리턴된 객체를 메소드 이름으로 보관한다
-  public DataSource dataSource(
-          @Value("${jdbc.classname}") String driverClassName,
-          @Value("${jdbc.url}") String url,
-          @Value("${jdbc.username}") String username,
-          @Value("${jdbc.password}") String password
-  ) {
-    System.out.println("dataSource() 호출 됨!");
-    DriverManagerDataSource dataSource = new DriverManagerDataSource();
-    dataSource.setDriverClassName(driverClassName);
-    dataSource.setUrl(url);
-    dataSource.setUsername(username);
-    dataSource.setPassword(password);
-    return dataSource;
-  }
-
-  @Bean
-  public PlatformTransactionManager transactionManager(DataSource dataSource) {
-    return new DataSourceTransactionManager(dataSource);
-  }
-
-  @Bean
-  public SqlSessionFactory sqlSessionFactory(DataSource dataSource, ApplicationContext iocContainer) throws Exception {
-    SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
-    factoryBean.setDataSource(dataSource);
-    factoryBean.setTypeAliasesPackage("bitcamp.myapp.vo");
-    factoryBean.setMapperLocations(iocContainer.getResources("classpath:bitcamp/myapp/mapper/*Dao.xml"));
-    return factoryBean.getObject();
-  }
 
 //   DAO 구현체 자동 생성을 설정하는 방법 2: 자바 코드로 설정하기
 //   - 다음 메서드를 통해 DAO 인터페이스의 구현체를 자동으로 생성해주는 객체를 준비한다
