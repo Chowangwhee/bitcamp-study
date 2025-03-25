@@ -1,6 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <title>로그인</title>
@@ -8,7 +7,7 @@
 <body>
 <div>
     <h2>로그인</h2>
-    <form action="/auth/login" method="post">
+    <form data-th-action="@{/auth/login}" method="post">
         <div>
             <label for="email">이메일:</label>
             <input type="email" id="email" name="email" value="${cookie.email.value}" required>

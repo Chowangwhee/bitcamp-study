@@ -62,11 +62,13 @@ public class BoardController {
   */
 
   @GetMapping("detail")
-  public View detail(int no, Model model) throws Exception {
+  public ModelAndView detail(int no) throws Exception {
     boardService.increaseViewCount(no);
     Board board = boardService.get(no);
-    model.addAttribute("board", board);
-    return new JstlView("/WEB-INF/views/board/detail.jsp");
+    ModelAndView mav = new ModelAndView();
+    mav.addObject("board", board);
+    mav.setViewName("/board/detail");
+    return mav;
   }
 
   @GetMapping("form")
