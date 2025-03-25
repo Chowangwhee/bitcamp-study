@@ -1,4 +1,4 @@
-package bitcamp.myapp.service;
+package bitcamp.myapp.cloud;
 
 public class StorageServiceException extends RuntimeException {
   public StorageServiceException(String message) {

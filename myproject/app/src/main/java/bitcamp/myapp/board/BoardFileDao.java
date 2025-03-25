@@ -1,7 +1,8 @@
-package bitcamp.myapp.dao;
+package bitcamp.myapp.board;
 
-import bitcamp.myapp.vo.AttachedFile;
+import org.apache.ibatis.annotations.Mapper;
 
+@Mapper
 public interface BoardFileDao {
 
   int insert(AttachedFile attachedFile);

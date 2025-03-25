@@ -1,7 +1,5 @@
-package bitcamp.myapp.service;
+package bitcamp.myapp.member;
 
-import bitcamp.myapp.dao.MemberDao;
-import bitcamp.myapp.vo.Member;
 import org.springframework.stereotype.Service;
 
 @Service

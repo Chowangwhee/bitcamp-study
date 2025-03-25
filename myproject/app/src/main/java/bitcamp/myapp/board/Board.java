@@ -1,8 +1,12 @@
-package bitcamp.myapp.vo;
+package bitcamp.myapp.board;
+
+import bitcamp.myapp.member.Member;
+import org.apache.ibatis.type.Alias;
 
 import java.sql.Date;
 import java.util.List;
 
+@Alias("board") // alias 는 SQL 파일에서 대소문자 구분 없이 사용 가능
 public class Board {
   private int no;
   private String title;

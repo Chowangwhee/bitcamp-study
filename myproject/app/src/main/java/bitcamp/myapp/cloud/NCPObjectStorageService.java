@@ -1,4 +1,4 @@
-package bitcamp.myapp.service;
+package bitcamp.myapp.cloud;
 
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
@@ -10,13 +10,11 @@ import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectInputStream;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.Properties;
 
 @Service
 public class NCPObjectStorageService implements StorageService {

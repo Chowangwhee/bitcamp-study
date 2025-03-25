@@ -1,7 +1,5 @@
-package bitcamp.myapp.controller;
+package bitcamp.myapp.member;
 
-import bitcamp.myapp.service.MemberService;
-import bitcamp.myapp.vo.Member;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;

@@ -1,12 +1,9 @@
-package bitcamp.myapp.dao;
+package bitcamp.myapp.member;
 
-import bitcamp.myapp.vo.Member;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
-
+@Mapper
 public interface MemberDao {
   Member findByEmailAndPassword(
           @Param("email") String email,

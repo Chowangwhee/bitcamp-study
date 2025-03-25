@@ -1,15 +1,11 @@
-package bitcamp.myapp.dao;
+package bitcamp.myapp.board;
 
-import bitcamp.myapp.vo.Board;
-import bitcamp.myapp.vo.Member;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.List;
 
+@Mapper
 public interface BoardDao {
 
   List<Board> findAll();

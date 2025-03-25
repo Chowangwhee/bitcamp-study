@@ -1,7 +1,10 @@
-package bitcamp.myapp.vo;
+package bitcamp.myapp.member;
+
+import org.apache.ibatis.type.Alias;
 
 import java.sql.Date;
 
+@Alias("member")
 public class Member {
   private int no;
   private String name;
