@@ -1,16 +1,14 @@
-package bitcamp.myapp.config.security03;
+package bitcamp.myapp.config.security03x;
 
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 
 //@Configuration
 // @EnableWebSecurity : Spring Boot 에서는 자동으로 활성화 된다
-public class SecurityConfig {
+public class SecurityConfig2 {
 
-    public SecurityConfig() {
+    public SecurityConfig2() {
         System.out.println("Security Config Constructor");
     }
 
