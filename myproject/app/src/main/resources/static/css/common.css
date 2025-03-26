@@ -4,7 +4,7 @@ body {
 
 #page-header {
     height: 80px;
-    background-color: gray;
+    background-color: lightgreen;
     align-items: center;
     display: flex;
     box-sizing: border-box;
@@ -20,4 +20,8 @@ body {
     display: flex;
     color: white;
     box-sizing: border-box;
+}
+
+#content {
+    padding: 10px 20px 30px 40px;
 }
