@@ -15,9 +15,9 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 //@Configuration
-public class SecurityConfig3 {
+public class SecurityConfig4 {
 
-    private static final Log log = LogFactory.getLog(SecurityConfig3.class);
+    private static final Log log = LogFactory.getLog(SecurityConfig4.class);
 
     @Bean
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
@@ -37,9 +37,6 @@ public class SecurityConfig3 {
     public UserDetailsService userDetailsService(PasswordEncoder passwordEncoder) {
         log.debug("UserDetailsService ready");
 
-        // 임시 사용자 정보 생성
-        // 사용자가 입력한 암호는 특별한 알고리즘으로 가공하여 저장
-        // 로그인 시 암호 원문을 똑같은 알고리즘으로 가공하여 비교
         UserDetails[] userdetails = {
                 User.builder()
                         .username("user1@test.com")
@@ -58,31 +55,25 @@ public class SecurityConfig3 {
                         .build(),
         };
 
-        // 메모리 영역에 사용자 목록을 준비하고 검사를 수행하는 객체 반환
         return new InMemoryUserDetailsManager(userdetails);
     }
 
-    // 기존의 PasswordEncoder 를 우리가 만든 인코더로 바꾼다
     @Bean
     public PasswordEncoder passwordEncoder() {
         log.debug("PasswordEncoder ready");
 
-        return new PasswordEncoder() {
+        // Spring 에서 제공하는 PasswordEncoder 사용하기
+        return new BCryptPasswordEncoder() {
             @Override
-            public String encode(CharSequence rawPassword) {
-                return rawPassword.toString(); // 가공 전 암호 그대로 반환
-            }
-
-            @Override
-            public boolean matches(CharSequence rawPassword, // 로그인 폼에 입력한 암호
-                                   String encodedPassword /* UserDetailsService 에 저장된 암호 */ ) {
-                log.debug("사용자가 입력한 암호: " + rawPassword);
-                log.debug("저장되어 있는 사용자의 암호: " + encodedPassword);
-                String encodedPassword2 = this.encode(rawPassword);
-
-                return encodedPassword.equals(encodedPassword2);
+            public boolean matches(CharSequence rawPassword, String encodedPassword) {
+                System.out.printf("사용자 입력 암호: %s\n" +
+                        "encode(사용자 입력 암호): %s\n" +
+                        "저장된 암호: %s\n", rawPassword, encode(rawPassword) , encodedPassword);
+                return super.matches(rawPassword, encodedPassword);
             }
         };
+
     }
 
 }
+

@@ -103,9 +103,11 @@
                 <input type="file" id="files" name="files" multiple>
                 <ul id="attached-files" data-th-if="${board?.attachedFiles != null}">
                     <li data-th-each="attachedFile : ${board.attachedFiles}">
-                        <a data-th-href="@{/board/file/download(fileNo=${attachedFile.no})}"
-                           data-th-text="${attachedFile.originFilename ?: '파일 없음'}">파일이름1</a>
-                        <button type="button" data-th-onclick="|deleteFile(${attachedFile.no})|">삭제</button>
+                        <div data-th-if="${attachedFile.no == 0}">
+                            <a data-th-href="@{/board/file/download(fileNo=${attachedFile.no})}"
+                               data-th-text="${attachedFile.originFilename ?: '파일 없음'}">파일이름1</a>
+                            <button type="button" data-th-onclick="|deleteFile(${attachedFile.no})|">삭제</button>
+                        </div>
                     </li>
                 </ul>
                 <p data-th-if="${board?.attachedFiles == null}">첨부된 파일이 없습니다.</p>
