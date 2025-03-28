@@ -11,7 +11,13 @@
         <div id="content">
             <div data-th-if="${session['loginUser']}">
                 <p data-th-text="${session['loginUser']?.name ?: '이름 없음'}">홍길동</p>
-                <a data-th-href="@{/logout}">로그아웃</a>
+                <a data-th-href="@{/logout}" onclick="logout(); return false">로그아웃</a>
+                <form id="logout-form" data-th-action="@{/logout}" method="post"></form>
+                <script>
+                    function logout() {
+                        document.querySelector('#logout-form').submit();
+                    }
+                </script>
             </div>
             <div data-th-if="${session['loginUser'] == null}">
                 <a data-th-href="@{/auth/login-form}">로그인</a>

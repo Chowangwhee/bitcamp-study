@@ -51,8 +51,8 @@ public class SecurityConfig1 {
                 // 3. 로그아웃 설정 - formLogin() 을 커스터마이징한다면 logout() 경로가 비활성화 된다
                 // 따라서 다음과 같이 명시적으로 설정해야 한다
                 .logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout", "GET"))
-//                    .logoutUrl("/logout") POST 요청에서만 동작
+//                .logoutRequestMatcher(new AntPathRequestMatcher("/logout", "GET"))
+                    .logoutUrl("/logout") // POST 요청에서만 동작
                     .logoutSuccessUrl("/home")
                     .invalidateHttpSession(true)
                     .deleteCookies("JSESSIONID")

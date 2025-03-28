@@ -128,19 +128,27 @@
                 <input type="submit" value="변경">
                 <input type="button" value="삭제"
                        data-th-if="${board?.no != null}"
-                       data-th-onclick="|deleteBoard(${board.no})|">
+                       onclick="deleteBoard()">
             </div>
         </form>
         <a href="list.html" data-th-href="@{/board/list}">목록</a>
+        <form class="board-delete-form" data-th-action="@{/board/delete}" method="post">
+            <input type="hidden" name="id" data-th-value="${board.no}">
+        </form>
+        <form class="board-delete-file-form" data-th-action="@{/board/deleteFile}" method="post">
+            <input type="hidden" name="id" data-th-value="${board.no}">
+            <input type="hidden" name="no">
+        </form>
     </div>
 </body>
 <script>
-    function deleteBoard(no) {
-        location.href = "/board/delete?no=" + no;
+    function deleteBoard() {
+        document.forms[1].submit();
     }
 
     function deleteFile(no) {
-        location.href = "/board/file/delete?no=" + no;
+        document.querySelector("#board-delete-form input[name='no']").value = no;
+        document.forms[2].submit();
     }
 </script>
 </html>
