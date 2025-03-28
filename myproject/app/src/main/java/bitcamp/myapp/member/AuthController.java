@@ -1,6 +1,6 @@
 package bitcamp.myapp.member;
 
-import bitcamp.myapp.config.security04.CustomUserDetails;
+import bitcamp.myapp.config.CustomUserDetails;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
